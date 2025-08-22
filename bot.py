@@ -25,10 +25,9 @@ def get_weather(city_name):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_KEY}&units=metric"
     resp = requests.get(url).json()
 
-    
     if resp.get("cod") != 200:
         return f"Error: {resp.get('message', 'could not get the data')}"
-        
+
     temp = resp["main"]["temp"]
     feels_like = resp["main"]["feels_like"]
     desc = resp["weather"][0]["description"]
@@ -40,14 +39,12 @@ def get_weather(city_name):
     else:
         rain = "heavy rain"
 
-    answer = f"Current weather in {city_name}: {temp}°C (feels like: {feels_like}°C) \nWeather conditions: {desc} \nRain: {rain}"
-    
+    answer = f"Current weather in {city_name}: {temp}°C (feels like: {feels_like}°C)\nWeather conditions: {desc}\nRain: {rain}"
     return answer
 
 @bot.message_handler(commands=['start'])
 def start_handler(message):
     bot.send_message(message.chat.id, "Please enter the name of the city to get the weather data.")
-    
 
 @bot.message_handler(content_types=['text'])
 def send_weather(message):
@@ -57,7 +54,6 @@ def send_weather(message):
     except Exception as e:
         weather_info = f"Error: {e}"
     bot.send_message(message.chat.id, weather_info)
-
 
 @app.before_first_request
 def setup_webhook():

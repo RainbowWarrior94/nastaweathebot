@@ -1,1 +1,2 @@
-python3 bot.py
+@echo off
+python bot.py
